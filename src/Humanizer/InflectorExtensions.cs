@@ -22,7 +22,8 @@
 //CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.Text.RegularExpressions;
-using Humanizer.Inflections;
+
+using Humanizer.Configuration;
 
 namespace Humanizer
 {
@@ -39,7 +40,7 @@ namespace Humanizer
         /// <returns></returns>
         public static string Pluralize(this string word, bool inputIsKnownToBeSingular = true)
         {
-            return Vocabularies.Default.Pluralize(word, inputIsKnownToBeSingular);
+            return Configurator.Inflector.Pluralize(word, inputIsKnownToBeSingular);
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Humanizer
         /// <returns></returns>
         public static string Singularize(this string word, bool inputIsKnownToBePlural = true, bool skipSimpleWords = false)
         {
-            return Vocabularies.Default.Singularize(word, inputIsKnownToBePlural, skipSimpleWords);
+            return Configurator.Inflector.Singularize(word, inputIsKnownToBePlural, skipSimpleWords);
         }
 
         /// <summary>

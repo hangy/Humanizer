@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Humanizer.DateTimeHumanizeStrategy;
+using Humanizer.Inflections;
 using Humanizer.Localisation.CollectionFormatters;
 using Humanizer.Localisation.DateToOrdinalWords;
 using Humanizer.Localisation.Formatters;
@@ -72,6 +73,11 @@ namespace Humanizer.Configuration
         }
 #endif
 
+        /// <summary>
+        /// A registry of ordinalizers used to localise Pluralize and Singularize methods
+        /// </summary>
+        public static LocaliserRegistry<IInflector> Inflectors { get; } = new InflectorRegistry();
+
         internal static ICollectionFormatter CollectionFormatter
         {
             get
@@ -107,6 +113,23 @@ namespace Humanizer.Configuration
             {
                 return Ordinalizers.ResolveForUiCulture();
             }
+        }
+
+        internal static IInflector Inflector
+        {
+            get
+            {
+                return Inflectors.ResolveForUiCulture();
+            }
+        }
+
+        /// <summary>
+        /// The inflector to be used
+        /// </summary>
+        /// <param name="culture">The culture to retrieve inflector for. Null means that current thread's UI culture should be used.</param>
+        internal static IInflector GetInflector(CultureInfo culture)
+        {
+            return Inflectors.ResolveForCulture(culture);
         }
 
         /// <summary>

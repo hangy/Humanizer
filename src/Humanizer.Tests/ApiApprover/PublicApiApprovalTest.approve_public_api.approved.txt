@@ -1729,6 +1729,7 @@ namespace Humanizer.Configuration
         public static Humanizer.Configuration.LocaliserRegistry<Humanizer.Localisation.DateToOrdinalWords.IDateToOrdinalWordConverter> DateToOrdinalWordsConverters { get; }
         public static System.Func<System.Reflection.PropertyInfo, bool> EnumDescriptionPropertyLocator { get; set; }
         public static Humanizer.Configuration.LocaliserRegistry<Humanizer.Localisation.Formatters.IFormatter> Formatters { get; }
+        public static Humanizer.Configuration.LocaliserRegistry<Humanizer.Inflections.IInflector> Inflectors { get; }
         public static Humanizer.Configuration.LocaliserRegistry<Humanizer.Localisation.NumberToWords.INumberToWordsConverter> NumberToWordsConverters { get; }
         public static Humanizer.Configuration.LocaliserRegistry<Humanizer.Localisation.Ordinalizers.IOrdinalizer> Ordinalizers { get; }
         public static Humanizer.DateTimeHumanizeStrategy.ITimeOnlyHumanizeStrategy TimeOnlyHumanizeStrategy { get; set; }
@@ -1805,11 +1806,16 @@ namespace Humanizer.DateTimeHumanizeStrategy
 }
 namespace Humanizer.Inflections
 {
+    public interface IInflector
+    {
+        string Pluralize(string word, bool inputIsKnownToBeSingular = True);
+        string Singularize(string word, bool inputIsKnownToBePlural = True, bool skipSimpleWords = False);
+    }
     public class static Vocabularies
     {
         public static Humanizer.Inflections.Vocabulary Default { get; }
     }
-    public class Vocabulary
+    public class Vocabulary : Humanizer.Inflections.IInflector
     {
         public void AddIrregular(string singular, string plural, bool matchEnding = True) { }
         public void AddPlural(string rule, string replacement) { }

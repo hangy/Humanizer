@@ -8,7 +8,7 @@ namespace Humanizer.Inflections
     /// Vocabularies.Default contains an extensive list of rules for US English.
     /// At this time, multiple vocabularies and removing existing rules are not supported.
     /// </summary>
-    public class Vocabulary
+    public class Vocabulary : IInflector
     {
         internal Vocabulary()
         {
